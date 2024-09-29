@@ -1,0 +1,1 @@
+select * from [SBO_CD1]..OCRD WHERE LicTradNum = @rut
