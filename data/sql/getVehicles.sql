@@ -1,0 +1,1 @@
+select * from autocentro..MaeVehiculos as vehic

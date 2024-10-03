@@ -1,19 +1,19 @@
 const customersData = require('../data');
 
-const getCustomerById = async (req, res) => {
+const getOrderTypes = async (req, res) => {
     var out = new Object()
     try {
-        const result = await customersData.getCustomerById(req.params.id);
-        let customer = result.recordset.length ? result.recordset[0] : null;
+        const result = await customersData.getOrderTypes();
+        let orderTypes = result.recordset.length ? result.recordset : null;
 
-        if(customer) {
+        if(orderTypes) {
             out.success = true;
             out.message = null;
-            out.data = customer;
+            out.data = orderTypes;
             res.status(200).json(out);
         } else {
             out.success = false;
-            out.message = "Cliente no encontrado";
+            out.message = "No se encontraron tipos de ordenes de trabajo";
             out.data = null;
             res.status(404).json(out);
         }
@@ -26,8 +26,6 @@ const getCustomerById = async (req, res) => {
     }
 }
 
-
-
 module.exports = {
-    getCustomerById
+    getOrderTypes
 }

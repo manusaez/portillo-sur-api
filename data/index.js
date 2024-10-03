@@ -22,19 +22,40 @@ const getCustomerById = async (rut) => {
         const sqlQueries = await utils.loadSqlQueries('sql');
         const query = sqlQueries.getCustomerById;
         let pool = await sql.connect(sqlConfig);
-        //let pool = new sql.Request()
-        const result = await pool.request()
+        return await pool.request()
         .input('rut', rut)
         .query(query);
-        console.log(result);
-        return result.recordset;
     } catch (error) {
-        console.log(error);
+        throw error;
     }
 }
 
-//getCustomerById();
+const getVehicles = async () => {
+    try {
+        const sqlQueries = await utils.loadSqlQueries('sql');
+        const query = sqlQueries.getVehicles;
+        let pool = await sql.connect(sqlConfig);
+        return await pool.request()
+        .query(query);
+    } catch (error) {
+        throw error;
+    }
+}
+
+const getOrderTypes = async () => {
+    try {
+        const sqlQueries = await utils.loadSqlQueries('sql');
+        const query = sqlQueries.getOrderTypes;
+        let pool = await sql.connect(sqlConfig);
+        return await pool.request()
+        .query(query);
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
-    getCustomerById
+    getCustomerById,
+    getVehicles,
+    getOrderTypes
 }

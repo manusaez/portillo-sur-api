@@ -1,9 +1,9 @@
 const customersData = require('../data');
 
-const getCustomerById = async (req, res) => {
+const getVehicles = async (req, res) => {
     var out = new Object()
     try {
-        const result = await customersData.getCustomerById(req.params.id);
+        const result = await customersData.getVehicles();
         let customer = result.recordset.length ? result.recordset[0] : null;
 
         if(customer) {
@@ -26,8 +26,6 @@ const getCustomerById = async (req, res) => {
     }
 }
 
-
-
 module.exports = {
-    getCustomerById
+    getVehicles
 }
