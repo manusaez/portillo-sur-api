@@ -30,12 +30,17 @@ const getCustomerById = async (rut) => {
     }
 }
 
-const getVehicles = async () => {
+const getVehicles = async (params) => {
     try {
         const sqlQueries = await utils.loadSqlQueries('sql');
         const query = sqlQueries.getVehicles;
         let pool = await sql.connect(sqlConfig);
         return await pool.request()
+        .input('licensePlate', params.licensePlate ? params.licensePlate : '')
+        .input('vin', params.vin ? params.vin : '')
+        .input('brand', params.brand ? params.brand : '')
+        .input('model', params.model ? params.model : '')
+        .input('year', params.year ? params.year : '')
         .query(query);
     } catch (error) {
         throw error;
@@ -54,8 +59,38 @@ const getOrderTypes = async () => {
     }
 }
 
+const saveOrder = async (order) => {
+    try {
+        const sqlQueries = await utils.loadSqlQueries('sql');
+        const query = sqlQueries.saveOrder;
+        let pool = await sql.connect(sqlConfig);
+        return await pool.request()
+        .input('vin', order.vin)
+        .input('organizationId', order.organizationId)
+        .input('serviceAdvisorId', order.serviceAdvisorId)
+        .input('promisedDate', order.promisedDate)
+        .input('kilometers', order.kilometers)
+        .input('orderType', order.orderType)
+        .input('cone', order.cone)
+        .input('firstName', order.firstName)
+        .input('lastName', order.lastName)
+        .input('mainPhone', order.mainPhone)
+        .input('mobile', order.mobile)
+        .input('email', order.email)
+        .input('licensePlate', order.licensePlate)
+        .input('brand', order.brand)
+        .input('model', order.model)
+        .input('year', order.year)
+        .input('notes', order.notes)
+        .query(query);
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getCustomerById,
     getVehicles,
-    getOrderTypes
+    getOrderTypes,
+    saveOrder
 }

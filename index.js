@@ -1,12 +1,12 @@
 const express = require('express');
-const vehiculosRoutes = require('./routes/recepcionVehiculosRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 require('dotenv').config();
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 
-app.use('/api', vehiculosRoutes.routes);
+app.use('/api/v1', apiRoutes.routes);
 
 app.listen(process.env.PORT, () => {
     console.log('Servidor iniciado en puerto:' + process.env.PORT )

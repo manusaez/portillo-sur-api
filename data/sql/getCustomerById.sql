@@ -1,7 +1,6 @@
 select 
 cli.CardCode as 'customerId',
 cli.CardName as 'firstName',
-null as 'lastName',
 cli.Address as 'address',
 cli.Cellular as 'mainPhone',
 cli.Phone1 as 'secondaryPhone',

@@ -1,9 +1,9 @@
-const customersData = require('../data');
+const data = require('../data');
 
 const getCustomerById = async (req, res) => {
     var out = new Object()
     try {
-        const result = await customersData.getCustomerById(req.params.id);
+        const result = await data.getCustomerById(req.params.id);
         let customer = result.recordset.length ? result.recordset[0] : null;
 
         if(customer) {
