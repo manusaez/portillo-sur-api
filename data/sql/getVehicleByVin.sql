@@ -1,0 +1,1 @@
+select * from Autocentro..MaeVehiculos where VehChasis = @vin

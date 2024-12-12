@@ -7,7 +7,6 @@ v.IdPatente as 'licensePlate',
 v.VehKilometros as 'kilometers',
 v.RutCliente as 'idClient',
 cli.CardName as 'firstName',
-null as 'lastName',
 cli.Phone1 as 'mobile',
 cli.Cellular as 'mainPhone',
 cli.E_mail as 'email'
@@ -20,5 +19,6 @@ and v.VehChasis LIKE '%'+@vin+'%'
 and ma.MarNombre LIKE '%'+@brand+'%'
 and mo.ModNombre LIKE '%'+@model+'%'
 and v.VehAño LIKE '%'+@year+'%'
+and cli.CardName LIKE '%'+@firstName+'%'
 and cli.CardType='C'
 and UPPER(ma.MarNombre) in ('HYUNDAI', 'BAIC', 'JIM', 'JWM', 'SHINERAY', 'SWM', 'MAHINDRA')

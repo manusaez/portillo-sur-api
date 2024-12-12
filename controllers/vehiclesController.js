@@ -4,12 +4,6 @@ const getVehicles = async (req, res) => {
     var out = new Object()
     try {
 
-        let patente = req.query.licensePlate;
-        let vin = req.query.vin;
-        let brand = req.query.brand;
-        let model = req.query.model;
-        let year = req.query.year;
-
         if(Object.keys(req.query).length === 0  ) {
             out.success = false;
             out.message = "Debe ingresar al menos un filtro.";

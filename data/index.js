@@ -32,6 +32,7 @@ const getCustomerById = async (rut) => {
 
 const getVehicles = async (params) => {
     try {
+        //añadir parametro firstName al filtro
         const sqlQueries = await utils.loadSqlQueries('sql');
         const query = sqlQueries.getVehicles;
         let pool = await sql.connect(sqlConfig);
@@ -41,6 +42,7 @@ const getVehicles = async (params) => {
         .input('brand', params.brand ? params.brand : '')
         .input('model', params.model ? params.model : '')
         .input('year', params.year ? params.year : '')
+        .input('firstName', params.firstName ? params.firstName : '')
         .query(query);
     } catch (error) {
         throw error;
@@ -88,9 +90,23 @@ const saveOrder = async (order) => {
     }
 }
 
+const getVehicleByVin = async (vin) => {
+    try {
+        const sqlQueries = await utils.loadSqlQueries('sql');
+        const query = sqlQueries.getVehicleByVin;
+        let pool = await sql.connect(sqlConfig);
+        return await pool.request()
+        .input('vin', vin)
+        .query(query);
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getCustomerById,
     getVehicles,
     getOrderTypes,
-    saveOrder
+    saveOrder,
+    getVehicleByVin
 }
