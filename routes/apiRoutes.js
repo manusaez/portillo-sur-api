@@ -6,11 +6,11 @@ const securityController = require('../controllers/securityController.js')
 
 const router = express.Router();
 
-router.get('/customers/:id', customersController.getCustomerById);
-router.get('/vehicles', vehiclesController.getVehicles);
-router.get('/orderTypes', ordersController.getOrderTypes);
-router.post('/orders', ordersController.saveOrder);
-router.post('/token', securityController.getToken);
+router.get('/customers/:id', securityController.validaToken, customersController.getCustomerById);
+router.get('/vehicles', securityController.validaToken, vehiclesController.getVehicles);
+router.get('/orderTypes', securityController.validaToken, ordersController.getOrderTypes);
+router.post('/orders', securityController.validaToken, ordersController.saveOrder);
+router.post('/login', securityController.getToken);
 
 module.exports = {
     routes: router
