@@ -42,20 +42,24 @@ const saveOrder = async (req, res) => {
             return res.status(404).json(out);
         }
 
+        //Obtener id de orderType con el key
+        let order = await data.getOrderTypeByKey(req.body.orderType)
+        req.body.orderType = order.recordset[0].id
+
         let patente = req.body.licensePlate.toUpperCase();
         req.body.licensePlate = patente.substring(0, 2).concat('-').concat(patente.substring(2, 4)).concat('-').concat(patente.substring(4, 6));
 
         const result = await data.saveOrder(req.body);
-        let orderTypes = result.recordset.length ? result.recordset : null;
+        let otInsertada = result.rowsAffected.length ? true : false;
 
-        if(orderTypes) {
+        if(otInsertada) {
             out.success = true;
-            out.message = null;
-            out.data = orderTypes;
+            out.message = "Orden de trajo almacenada correctamente";
+            out.data = null;
             return res.status(200).json(out);
         } else {
             out.success = false;
-            out.message = "No se encontraron tipos de ordenes de trabajo";
+            out.message = "Ha ocurrido un error al almacenar la orden de trabajo";
             out.data = null;
             return res.status(404).json(out);
         }

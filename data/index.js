@@ -103,10 +103,24 @@ const getVehicleByVin = async (vin) => {
     }
 }
 
+const getOrderTypeByKey = async (key) => {
+    try {
+        const sqlQueries = await utils.loadSqlQueries('sql');
+        const query = sqlQueries.getOrderTypeByKey;
+        let pool = await sql.connect(sqlConfig);
+        return await pool.request()
+        .input('key', key)
+        .query(query);
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getCustomerById,
     getVehicles,
     getOrderTypes,
     saveOrder,
-    getVehicleByVin
+    getVehicleByVin,
+    getOrderTypeByKey
 }
